@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse, Http404
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
+from django.shortcuts import render, redirect
 
 
 from .models import Product
-
+from .forms import ProductModelForm
 
 # Create your views here.
 
@@ -35,3 +35,25 @@ def product_list_view(request, *args, **kwargs):
     qs = Product.objects.all() # [obj1, obj2, obj3,]
     context = {"object_list": qs}
     return render(request, "products/list.html", context)
+
+def product_create_view(request, *args, **kwargs):
+ #   if request.method == "POST":
+ #       if post_data != None:
+ #           my_form = ProductForm(request.POST)
+ #           if my_form.is_valid():
+ #               title_from_input = my_form.cleaned_data.get("title")
+ #               Product.objects.create(title=title_from_input)
+
+    form = ProductModelForm(request.POST or None)
+    if form.is_valid():
+        obj = form.save(commit=False)
+        # do some stuff
+        # obj.user = request.user
+        obj.save()
+       # data = form.cleaned_data
+       # Product.objects.create(**data)
+        form = ProductModelForm()
+        # return  HttpResponseRedirect("/success")
+        # return redirect("/success")
+
+    return render(request, "forms.html", {"form": form})

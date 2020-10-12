@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path # url
 
 from products.views import (
+    product_create_view,
     home_view,
     product_detail_view,
     product_list_view,
@@ -26,6 +27,7 @@ from products.views import (
 urlpatterns = [
     path('search/', home_view),
     path('products/<int:id>/', product_detail_view),
+    path('products/create/', product_create_view),
     path('products/', product_list_view),
     path('api/products/<int:id>/', product_api_detail_view),
  #   re_path(r'api/products/(<int:id>/)/', product_api_detail_view),
