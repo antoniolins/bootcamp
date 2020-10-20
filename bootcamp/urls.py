@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path # url
 
+from accounts.views import (
+    login_view,
+    logout_view,
+    register_view,
+)
+
 from products.views import (
     product_create_view,
     home_view,
@@ -26,6 +32,9 @@ from products.views import (
 
 urlpatterns = [
     path('search/', home_view),
+    path('login/', login_view),
+    path('logout/', logout_view),
+    path('register/', register_view),
     path('products/<int:id>/', product_detail_view),
     path('products/create/', product_create_view),
     path('products/', product_list_view),

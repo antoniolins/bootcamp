@@ -11,7 +11,8 @@ class ProductModelForm(forms.ModelForm):
         model = Product
         fields = [
             'title',
-            'content'
+            'content',
+            'price',
         ]
 
     def clean_content(self):
